@@ -1,5 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 MenuCore = 'ox' -- Use qb or ox
+TargetCore = 'ox' -- Use qb or ox
 
 local arcades = {
     'prop_arcade_01',
@@ -21,16 +22,29 @@ local arcades = {
     'sum_prop_arcade_qub3d_01a',
 }
 
-exports['qb-target']:AddTargetModel(arcades, {
-    options = {
-        {
-            event = 'arcade:menu',
-            icon = 'fas fa-gamepad',
-            label = 'Arcade',
+if TargetCore == 'qb' then
+    exports['qb-target']:AddTargetModel(arcades, {
+        options = {
+            {
+                event = 'arcade:menu',
+                icon = 'fas fa-gamepad',
+                label = 'Arcade',
+            },
         },
-    },
-    distance = 1.0,
-})
+        distance = 1.0,
+    })
+elseif TargetCore == 'ox' then
+    exports.ox_target:addLocalEntity(arcades, {
+        {
+            name = 'Arcade',
+            label = 'Arcade',
+            icon = 'fas fa-gamepad',
+            onSelect = function()
+                TriggerEvent('arcade:menu')
+            end,
+        },
+    })
+end
 
 RegisterNetEvent('arcade:menu', function()
     if MenuCore == 'qb' then
