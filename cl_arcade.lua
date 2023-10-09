@@ -34,7 +34,7 @@ if TargetCore == 'qb' then
         distance = 1.0,
     })
 elseif TargetCore == 'ox' then
-    exports.ox_target:addLocalEntity(arcades, {
+    exports.ox_target:addModel(arcades, {
         {
             name = 'Arcade',
             label = 'Arcade',
